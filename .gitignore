@@ -42,3 +42,12 @@ next-env.d.ts
 
 # firebase
 firebase.js
+
+# stripe
+.stripe
+
+# clerk
+.clerk
+
+# middleware
+middleware.ts
