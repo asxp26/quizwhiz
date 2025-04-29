@@ -13,7 +13,7 @@ import {
 import Head from "next/head";
 export default function Home() {
   return (
-    <Container maxWidth={false} disableGutters sx={{ minHeight: "false" }}>
+    <Container maxWidth="100vw" disableGutters>
       <Head>
         <title>QuizWhiz</title>
         <meta name="description" content="QuizWhiz! A Flashcard SaaS App" />
@@ -24,8 +24,12 @@ export default function Home() {
             QuizWhiz
           </Typography>
           <SignedOut>
-            <Button color="inherit">Login</Button>
-            <Button color="inherit">Register</Button>
+            <Button color="inherit" href="/sign-in">
+              Login
+            </Button>
+            <Button color="inherit" href="/sign-up">
+              Register
+            </Button>
           </SignedOut>
           <SignedIn>
             <UserButton />
