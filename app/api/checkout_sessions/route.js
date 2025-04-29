@@ -8,7 +8,7 @@ const formatAmountForStripe = (amount, currency) => {
 
 export async function POST(req) {
   const params = {
-    submit_type: "subscription",
+    mode: "subscription",
     payment_method_types: ["card"],
     line_items: [
       {
@@ -26,8 +26,12 @@ export async function POST(req) {
         quantity: 1,
       },
     ],
-    success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
+    success_url: `${req.headers.get(
+      "origin"
+    )}/result?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${req.headers.get(
+      "origin"
+    )}/result?session_id={CHECKOUT_SESSION_ID}`,
   };
   const checkoutSession = await stripe.checkout.sessions.create(params);
   return NextResponse.json(checkoutSession, {
