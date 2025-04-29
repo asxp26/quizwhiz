@@ -20,8 +20,14 @@ import {
   CardActionArea,
   Grid,
 } from "@mui/material";
-import { collection, doc, getDoc, writeBatch } from "firebase/firestore";
-
+import {
+  collection,
+  doc,
+  getDoc,
+  writeBatch,
+  setDoc,
+} from "firebase/firestore";
+import { db } from "@/firebase";
 export default function Generate() {
   const { isLoaded, isSignedIn, user } = useUser();
   const [flashcards, setFlashcards] = useState([]);
