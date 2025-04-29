@@ -1,5 +1,5 @@
-import NextResponse from "next/server";
-import OpenAI from "openai";
+import { NextResponse } from "next/server";
+import { OpenAI } from "openai";
 
 const systemPrompt = `
 You are a flashcard creator. Your task is to create high-quality and effective flashcards from the given topic or content.
@@ -55,6 +55,8 @@ For each flashcard:
     - Break multi-part questions into separate cards
     - Ensure questions can be answered definitively
 
+11. Only generate 3 flashcards
+
 Remember, the goal is to facilitate effective learning and retention of information through these flashcards.
 
 Return in the following JSON format
@@ -69,10 +71,10 @@ Return in the following JSON format
 `;
 
 export async function POST(req) {
-  const openai = OpenAI();
+  const openai = new OpenAI();
   const data = await req.text();
 
-  const completion = await openai.chat.completion.create({
+  const completion = await openai.chat.completions.create({
     messages: [
       { role: "system", content: systemPrompt },
       { role: "user", content: data },
@@ -81,5 +83,5 @@ export async function POST(req) {
     response_format: { type: "json_object" },
   });
   const flashcards = JSON.parse(completion.choices[0].message.content);
-  return NextResponse.json(flashcards.flashcard);
+  return NextResponse.json(flashcards.flashcards);
 }
